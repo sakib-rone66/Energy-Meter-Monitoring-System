@@ -26,7 +26,7 @@ An IoT-based smart energy monitoring system designed to measure electrical param
 
 The **IoT-Based Energy Meter Monitoring System** is designed to monitor electrical energy usage and make consumption information remotely accessible through IoT connectivity.
 
-The system collects electrical measurements using a **PZEM-004T energy-metering module**, processes the readings through an **ESP32 microcontroller**, and transmits monitoring data to **ThingSpeak** through Wi-Fi for cloud-based visualization and remote observation.
+The system collects electrical measurements using an energy-metering module, processes the readings through an **ESP32 microcontroller**, and transmits monitoring data to **ThingSpeak** through Wi-Fi for cloud-based visualization and remote observation.
 
 The project demonstrates the integration of:
 
@@ -63,10 +63,11 @@ The primary objectives are:
 
 ```text
 ⚡ Real-Time Energy Monitoring
-📈 Voltage Measurement
-🔌 Current Measurement
-💡 Power Monitoring
+📈 Voltage Monitoring
+🔌 Current Monitoring
 🔋 Energy Consumption Tracking
+〰️ Frequency Monitoring
+💰 Electricity Cost Monitoring
 🧠 ESP32-Based Processing
 📡 Wi-Fi Connectivity
 ☁️ ThingSpeak IoT Cloud Integration
@@ -84,7 +85,6 @@ The primary objectives are:
                         │
                         ▼
                ┌─────────────────┐
-               │    PZEM-004T    │
                │ Energy Metering │
                │     Module      │
                └────────┬────────┘
@@ -135,7 +135,6 @@ Its responsibilities include:
 
 - Reading electrical measurement data
 - Processing collected values
-- Communicating with the PZEM-004T
 - Managing Wi-Fi connectivity
 - Preparing monitoring data
 - Transmitting data to ThingSpeak
@@ -143,26 +142,17 @@ Its responsibilities include:
 
 ---
 
-## ⚡ PZEM-004T Energy Metering Module
+## ⚡ Energy Measurement
 
-The **PZEM-004T** is used to obtain electrical measurements from the monitored electrical system.
+The energy-metering component collects electrical measurements from the monitored electrical system.
 
-The monitored parameters include:
-
-```text
-Voltage
-Current
-Power
-Energy Consumption
-```
-
-The collected measurements are transferred to the ESP32 for processing and cloud transmission.
+The collected information is processed by the ESP32 before being transmitted to the cloud monitoring platform.
 
 ---
 
 ## 📡 Wi-Fi Connectivity
 
-Wi-Fi connectivity enables communication between the ESP32 and the cloud monitoring platform.
+Wi-Fi provides the communication layer between the ESP32 and ThingSpeak.
 
 ```text
 ESP32
@@ -177,7 +167,7 @@ Internet
 ThingSpeak
 ```
 
-This allows monitoring information to be transmitted without requiring users to access the physical energy meter directly.
+This enables monitoring information to be transmitted without requiring direct access to the physical energy meter.
 
 ---
 
@@ -185,16 +175,16 @@ This allows monitoring information to be transmitted without requiring users to 
 
 **ThingSpeak** is used as the IoT cloud platform for receiving and visualizing energy-monitoring data transmitted by the ESP32.
 
-The integration enables:
+The integration provides:
 
-- Cloud-based energy data collection
+- Cloud-based data collection
 - Remote monitoring
 - Real-time data visualization
 - Electrical parameter tracking
 - Internet-accessible monitoring
 - Historical observation of transmitted measurements
 
-The ESP32 collects measurements from the PZEM-004T and sends the processed data to ThingSpeak through the network connection.
+The ESP32 processes the electrical measurements and sends the resulting monitoring data to ThingSpeak through the network connection.
 
 ---
 
@@ -207,7 +197,7 @@ Electrical Load
 Electrical Measurement
       │
       ▼
-PZEM-004T
+Energy Metering Module
       │
       ▼
 ESP32
@@ -231,69 +221,125 @@ Cloud Visualization
 Remote Monitoring
 ```
 
-The workflow creates a complete IoT monitoring pipeline from physical electrical measurements to remotely accessible monitoring information.
+The workflow creates an IoT monitoring pipeline from physical electrical measurements to remotely accessible monitoring information.
 
 ---
 
-# 📊 Monitored Parameters
+# 📊 Monitored Information
 
-| Parameter | Purpose |
+The implemented system provides cloud visualization for important energy-monitoring information.
+
+| Measurement | Purpose |
 |---|---|
-| **Voltage** | Monitors the electrical supply voltage |
-| **Current** | Measures electrical current consumption |
-| **Power** | Indicates electrical power usage |
-| **Energy** | Tracks accumulated energy consumption |
+| **Voltage** | Observes electrical supply voltage |
+| **Current** | Tracks electrical current |
+| **Energy** | Monitors accumulated energy consumption |
+| **Frequency** | Observes electrical supply frequency |
+| **Cost** | Provides electricity-cost monitoring based on energy usage |
 
-Together, these measurements provide useful information for observing and understanding electricity usage.
+The ThingSpeak dashboard provides a visual representation of these measurements over time.
 
 ---
 
-# ☁️ Cloud Monitoring Architecture
+# 📸 Project Showcase
 
-ThingSpeak provides the cloud layer between the physical monitoring hardware and remote visualization.
+## 🔧 Final Hardware Implementation
+
+The following image shows the physical implementation of the IoT-Based Energy Meter Monitoring System.
+
+<div align="center">
+
+<img src="docs/screenshots/01-final-project.jpg" width="700" alt="IoT-Based Energy Meter Monitoring System Final Hardware">
+
+</div>
+
+---
+
+## ☁️ ThingSpeak Cloud Monitoring
+
+The ESP32 transmits monitoring information through Wi-Fi to **ThingSpeak**, where the collected data can be remotely visualized.
+
+### ⚡ Voltage Monitoring
+
+<div align="center">
+
+<img src="docs/screenshots/02-thingspeak-voltage.jpg" width="800" alt="ThingSpeak Voltage Monitoring">
+
+</div>
+
+### 🔌 Current Monitoring
+
+<div align="center">
+
+<img src="docs/screenshots/03-thingspeak-current.jpg" width="800" alt="ThingSpeak Current Monitoring">
+
+</div>
+
+### 🔋 Energy Monitoring
+
+<div align="center">
+
+<img src="docs/screenshots/04-thingspeak-energy.jpg" width="800" alt="ThingSpeak Energy Monitoring">
+
+</div>
+
+### 〰️ Frequency Monitoring
+
+<div align="center">
+
+<img src="docs/screenshots/05-thingspeak-frequency.jpg" width="800" alt="ThingSpeak Frequency Monitoring">
+
+</div>
+
+### 💰 Electricity Cost Monitoring
+
+<div align="center">
+
+<img src="docs/screenshots/06-thingspeak-cost.jpg" width="800" alt="ThingSpeak Electricity Cost Monitoring">
+
+</div>
+
+---
+
+# 🔌 Hardware-to-Cloud Pipeline
+
+One of the main engineering concepts demonstrated by this project is the complete flow of information from physical hardware to cloud visualization.
 
 ```text
-┌──────────────────────┐
-│   Electrical System  │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│      PZEM-004T       │
-│ Energy Measurement   │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│        ESP32         │
-│ Processing + Wi-Fi   │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│      ThingSpeak      │
-│      IoT Cloud       │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│       Charts &       │
-│   Data Visualization │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│   Remote Monitoring  │
-└──────────────────────┘
+REAL WORLD
+    │
+    ▼
+Electrical Load
+    │
+    ▼
+Energy Measurement
+    │
+    ▼
+ESP32
+    │
+    ▼
+Wi-Fi
+    │
+    ▼
+Internet
+    │
+    ▼
+ThingSpeak
+    │
+    ▼
+Cloud Visualization
+    │
+    ▼
+USER
 ```
 
-This architecture demonstrates how IoT technology can extend a physical energy meter into a remotely accessible monitoring system.
+This demonstrates practical **hardware–software–cloud integration** within an IoT system.
 
 ---
 
 # 🌐 IoT Monitoring Concept
 
-The project demonstrates how a conventional energy-monitoring process can be extended through internet connectivity and cloud services.
+The project demonstrates how conventional energy monitoring can be extended through internet connectivity and cloud services.
 
 ```text
 Physical Electricity Usage
@@ -311,49 +357,13 @@ Cloud Visualization
 Remote Energy Monitoring
 ```
 
-Instead of limiting energy information to a locally accessible physical meter, the system allows measurements to be transmitted to the cloud and observed remotely.
-
----
-
-# 🔌 Hardware-to-Cloud Pipeline
-
-One of the main engineering concepts demonstrated by this project is the complete flow of information from physical hardware to cloud visualization.
-
-```text
-REAL WORLD
-    │
-    ▼
-Electrical Load
-    │
-    ▼
-PZEM-004T
-    │
-    ▼
-ESP32
-    │
-    ▼
-Wi-Fi
-    │
-    ▼
-Internet
-    │
-    ▼
-ThingSpeak
-    │
-    ▼
-Visualization
-    │
-    ▼
-USER
-```
-
-This creates a practical example of **hardware-software-cloud integration** within an IoT system.
+Instead of limiting monitoring information to a locally accessible physical device, the system enables measurements to be transmitted to the cloud and observed remotely.
 
 ---
 
 # 💡 Applications
 
-The system concept can be applied to areas such as:
+Potential applications of the system concept include:
 
 - Residential energy monitoring
 - Laboratory energy analysis
@@ -375,7 +385,6 @@ Developing this project provided practical exposure to:
 IoT System Design
 Embedded Systems
 ESP32 Development
-PZEM-004T Integration
 Electrical Data Acquisition
 Microcontroller Programming
 Wi-Fi Communication
@@ -389,21 +398,27 @@ Hardware-to-Cloud Communication
 
 ---
 
-# 📁 Repository Contents
-
-The repository contains project materials related to the implementation and documentation of the system.
+# 📁 Repository Structure
 
 ```text
 Energy-Meter-Monitoring-System/
 │
+├── docs/
+│   └── screenshots/
+│       ├── 01-final-project.jpg
+│       ├── 02-thingspeak-voltage.jpg
+│       ├── 03-thingspeak-current.jpg
+│       ├── 04-thingspeak-energy.jpg
+│       ├── 05-thingspeak-frequency.jpg
+│       └── 06-thingspeak-cost.jpg
+│
 ├── Source Code
-│
 ├── Project Documentation
-│
 ├── Originality / Supporting Documentation
-│
 └── README.md
 ```
+
+> Repository contents may include implementation files and supporting academic project documentation in addition to the showcase assets above.
 
 ---
 
@@ -414,13 +429,13 @@ Possible future enhancements include:
 - Historical energy-consumption analysis
 - Improved monitoring dashboards
 - Usage alerts and notifications
-- Energy-consumption reports
+- Automated energy-consumption reports
 - Multi-device monitoring
 - Advanced cloud visualization
-- Energy usage analytics
+- Extended energy analytics
 - Threshold-based alerts
 - Mobile monitoring interface
-- Extended smart-energy functionality
+- Additional smart-energy functionality
 
 ---
 
@@ -450,7 +465,7 @@ Possible future enhancements include:
 
 ### From Electrical Measurements to Cloud-Based Energy Monitoring
 
-**ESP32 • PZEM-004T • Wi-Fi • ThingSpeak • IoT**
+**ESP32 • Wi-Fi • ThingSpeak • IoT**
 
 <br>
 
